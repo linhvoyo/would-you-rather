@@ -19,6 +19,7 @@
         "react"
     ],
     "rules": {
-        "react/jsx-filename-extension": [0, { "allow": "as-needed" }]
+        "react/jsx-filename-extension": [0, { "allow": "as-needed" }],
+        "import/no-extraneous-dependencies": ["error", {"devDependencies": true}]
     }
 }
