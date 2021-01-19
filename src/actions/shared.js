@@ -1,9 +1,16 @@
 import { handleGetUsers } from './users';
 import { handleGetQuestions } from './questions';
 
-export const INIT_APP = 'INIT_APP';
+export const APP_LOADING = 'APP_LOADING';
+export const APP_LOADED = 'APP_LOADED';
 
-export const initApp = () => (dispatch) => {
-  dispatch(handleGetUsers());
-  dispatch(handleGetQuestions());
+const appLoading = () => ({ type: APP_LOADING });
+
+const appLoaded = () => ({ type: APP_LOADED });
+
+export const initApp = () => async (dispatch) => {
+  dispatch(appLoading());
+  await dispatch(handleGetUsers());
+  await dispatch(handleGetQuestions());
+  dispatch(appLoaded());
 };

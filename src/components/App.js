@@ -15,6 +15,7 @@ class App extends React.Component {
   }
 
   render() {
+    console.log(this.props);
     return (
       <div className="App">
         App
@@ -24,7 +25,11 @@ class App extends React.Component {
   }
 }
 
-export default connect()(App);
+const mapStateToProps = ({ ui }) => ({
+  loading: ui.appLoading,
+});
+
+export default connect(mapStateToProps)(App);
 
 App.propTypes = {
   dispatch: PropTypes.func.isRequired,
