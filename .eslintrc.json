@@ -8,6 +8,7 @@
         "plugin:react/recommended",
         "airbnb"
     ],
+    "parser": "babel-eslint",
     "parserOptions": {
         "ecmaFeatures": {
             "jsx": true
@@ -20,6 +21,7 @@
     ],
     "rules": {
         "react/jsx-filename-extension": [0, { "allow": "as-needed" }],
-        "import/no-extraneous-dependencies": ["error", {"devDependencies": true}]
+        "import/no-extraneous-dependencies": ["error", {"devDependencies": true}],
+        "no-unused-vars": ["warn", { "vars": "all", "args": "after-used", "ignoreRestSiblings": false }]
     }
 }

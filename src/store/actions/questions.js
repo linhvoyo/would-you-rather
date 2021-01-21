@@ -1,4 +1,4 @@
-import { _getQuestions } from '../api/_DATA';
+import { _getQuestions } from '../../api/_DATA';
 
 export const GET_QUESTIONS = 'GET_QUESTIONS';
 

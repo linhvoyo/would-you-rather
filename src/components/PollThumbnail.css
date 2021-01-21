@@ -1,0 +1,11 @@
+.PollThumbnail {
+  border: 1px solid #ccc;
+  border-radius: 16px;
+}
+
+.avatar {
+  height: 50px;
+  border-radius: 25px;
+  margin: 10px;
+
+}
