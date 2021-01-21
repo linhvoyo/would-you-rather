@@ -1,3 +1,5 @@
+import { showLoading, hideLoading } from 'react-redux-loading';
+
 import { handleGetUsers } from './users';
 import { handleGetQuestions } from './questions';
 
@@ -10,7 +12,9 @@ const appLoaded = () => ({ type: APP_LOADED });
 
 export const initApp = () => async (dispatch) => {
   dispatch(appLoading());
+  dispatch(showLoading());
   await dispatch(handleGetUsers());
   await dispatch(handleGetQuestions());
   dispatch(appLoaded());
+  dispatch(hideLoading());
 };

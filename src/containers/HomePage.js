@@ -33,7 +33,7 @@ class HomePage extends React.Component {
         <ul>
           <span>Answered Questions</span>
           {showQuestions.map((q) => (
-            <li>
+            <li key={q.id}>
               <PollThumbnail
                 author={q.author}
                 avatar={users[q.author].avatarURL}

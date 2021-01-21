@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import LoadingBar from 'react-redux-loading';
 
 import './App.css';
 import { initApp, authenticateUser } from '../store/actions';
@@ -17,6 +18,7 @@ class App extends React.Component {
     const { appLoaded, authedUser } = this.props;
     return (
       <div className="App">
+        <LoadingBar />
         App
         {(authedUser && appLoaded) && <HomePage />}
       </div>
