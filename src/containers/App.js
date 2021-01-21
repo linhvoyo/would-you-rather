@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import LoadingBar from 'react-redux-loading';
+import { Route } from 'react-router-dom';
 
 import './App.css';
 import { initApp, authenticateUser } from '../store/actions';
@@ -16,15 +17,24 @@ class App extends React.Component {
     dispatch(initApp());
   }
 
+  createQuestionHandler = (opt1, opt2) => {
+    console.log('create question');
+    console.log(opt1);
+    console.log(opt2);
+  }
+
   render() {
     const { appLoaded, authedUser } = this.props;
     return (
       <div className="App">
         <LoadingBar />
-        App
         <Nav />
-        <CreateQuestion />
-        {(authedUser && appLoaded) && <HomePage />}
+        {(authedUser && appLoaded) && (
+          <>
+            <Route path="/" exact component={HomePage} />
+            <Route path="/add" exact render={() => <CreateQuestion onCreateQuestion={this.createQuestionHandler} />} />
+          </>
+        )}
       </div>
     );
   }

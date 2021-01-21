@@ -1,16 +1,17 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import { Button } from 'react-bulma-components';
 import './CreateQuestion.css';
 
-const CreateQuestion = () => {
+const CreateQuestion = (props) => {
+  const { onCreateQuestion } = props;
   const optOneInput = React.useRef(null);
   const optTwoInput = React.useRef(null);
 
   function clickHandler(event) {
     event.preventDefault();
-    console.log(optOneInput.current.value);
-    console.log(optTwoInput.current.value);
+    onCreateQuestion(optOneInput.current.value, optTwoInput.current.value);
   }
 
   return (
@@ -37,3 +38,7 @@ const CreateQuestion = () => {
 };
 
 export default CreateQuestion;
+
+CreateQuestion.propTypes = {
+  onCreateQuestion: PropTypes.func.isRequired,
+};
