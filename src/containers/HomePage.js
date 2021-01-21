@@ -2,36 +2,47 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
+import { Button } from 'react-bulma-components';
+import './HomePage.css';
 import PollThumbnail from '../components/PollThumbnail';
 
 class HomePage extends React.Component {
+  constructor(props) {
+    super(props);
+    this.answered = 'Answered';
+    this.unanswer = 'Unanswered';
+
+    this.state = {
+      type: this.answered,
+    };
+  }
+
   submitPollHandler = (id) => {
     console.log(`Submit Poll ${id}`);
   };
 
+  toggleTypeHandler = () => {
+    this.setState((prev) => (
+      { type: prev.type === this.answered ? this.unanswer : this.answered }));
+  };
+
   render() {
-    console.log('[HomePage.js] ');
-    console.log(this.props);
     const { questions, users, authedUser } = this.props;
-    const [question] = questions;
-    console.log(questions);
+    const { type } = this.state;
 
     const answeredQs = questions.filter((q) => q.answeredBy.includes(authedUser));
     const unansweredQs = questions.filter((q) => !q.answeredBy.includes(authedUser));
 
-    const showQuestions = answeredQs;
+    const showQuestions = type === this.answered ? answeredQs : unansweredQs;
+
     return (
-      <div className="Homepage">
-        Homepage
-        <PollThumbnail
-          author={question.author}
-          avatar={users[question.author].avatarURL}
-          id={question.id}
-          onPollSubmit={this.submitPollHandler}
-          text={question.optionOne.text || question.optionTwo.text}
-        />
+      <div className="HomePage">
+        <h1 className="title">HomePage</h1>
+        <Button className="toggle-type" onClick={this.toggleTypeHandler}>
+          {type === this.answered ? 'View Unanswered' : 'View Answered'}
+        </Button>
         <ul>
-          <span>Answered Questions</span>
+          <h1 className="subtitle">{`${type} Questions`}</h1>
           {showQuestions.map((q) => (
             <li key={q.id}>
               <PollThumbnail

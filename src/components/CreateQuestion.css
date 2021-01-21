@@ -1,0 +1,7 @@
+form.create-question {
+  display: grid;
+  width: 400px;
+  margin-left: 30%;
+  /* grid-auto-flow: column;
+  grid-column-gap: 10px; */
+}

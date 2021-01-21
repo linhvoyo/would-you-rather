@@ -6,6 +6,8 @@ import LoadingBar from 'react-redux-loading';
 import './App.css';
 import { initApp, authenticateUser } from '../store/actions';
 import HomePage from './HomePage';
+import Nav from '../components/Nav';
+import CreateQuestion from '../components/CreateQuestion';
 
 class App extends React.Component {
   componentDidMount() {
@@ -20,6 +22,8 @@ class App extends React.Component {
       <div className="App">
         <LoadingBar />
         App
+        <Nav />
+        <CreateQuestion />
         {(authedUser && appLoaded) && <HomePage />}
       </div>
     );

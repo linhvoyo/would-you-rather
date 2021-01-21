@@ -20,7 +20,7 @@ export default function PollThumbnail(props) {
         <h3>Would you rather</h3>
         <span>{`${text}...`}</span>
         <Button
-          className="button is-primary"
+          className="is-primary"
           type="submit"
           onClick={() => onPollSubmit(id)}
         >
