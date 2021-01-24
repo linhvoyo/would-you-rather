@@ -1,5 +1,11 @@
+.navbar {
+  margin-top: 3px;
+}
 .navbar-start {
   display: flex;
   justify-content: center;
-  border-bottom: 1px solid #aaa;
+}
+
+.active, .active:active, .active:focus {
+  color: #3273dc;
 }

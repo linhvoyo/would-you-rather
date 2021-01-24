@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import './Poll.css';
 import PollOptions from '../components/PollOptions';
 import PollResults from '../components/PollResults';
+import { saveQuestion } from '../store/actions';
 
 class Poll extends React.Component {
   constructor() {
@@ -21,6 +22,18 @@ class Poll extends React.Component {
         || question.optionTwo.votes.includes(authedUser),
     });
   }
+
+  pollSubmitHandler = async (event) => {
+    const {
+      dispatch,
+      question: { id },
+      history: { push },
+    } = this.props;
+    event.preventDefault();
+    const answer = event.target.poll.value;
+    await dispatch(saveQuestion(id, answer));
+    push('/');
+  };
 
   render() {
     const { answered } = this.state;
@@ -42,7 +55,13 @@ class Poll extends React.Component {
               options={[question.optionOne, question.optionTwo]}
             />
           )
-            : <PollOptions optOne={question.optionOne.text} optTwo={question.optionTwo.text} />}
+            : (
+              <PollOptions
+                onPollSubmit={this.pollSubmitHandler}
+                optOne={question.optionOne.text}
+                optTwo={question.optionTwo.text}
+              />
+            )}
         </div>
       </div>
     );
@@ -69,4 +88,7 @@ Poll.propTypes = {
   name: PropTypes.string.isRequired,
   avatarURL: PropTypes.string.isRequired,
   authedUser: PropTypes.string.isRequired,
+  dispatch: PropTypes.func.isRequired,
+  // eslint-disable-next-line react/forbid-prop-types
+  history: PropTypes.object.isRequired,
 };

@@ -10,6 +10,7 @@ import HomePage from './HomePage';
 import Nav from '../components/Nav';
 import CreateQuestion from '../components/CreateQuestion';
 import Poll from './Poll';
+import LeaderBoard from '../components/LeaderBoard';
 
 class App extends React.Component {
   componentDidMount() {
@@ -25,26 +26,28 @@ class App extends React.Component {
   }
 
   render() {
-    const { appLoaded, authedUser } = this.props;
+    const { appLoaded, authedUser, users } = this.props;
     return (
       <div className="App">
         <LoadingBar />
-        <Nav />
-        {(authedUser && appLoaded) && (
+        {(authedUser && appLoaded) ? (
           <>
+            <Nav name={users[authedUser].name} avatarURL={users[authedUser].avatarURL} />
             <Route path="/" exact component={HomePage} />
             <Route path="/add" exact render={() => <CreateQuestion onCreateQuestion={this.createQuestionHandler} />} />
             <Route path="/question/:id" component={Poll} />
+            <Route path="/leaderboard" exact render={() => <LeaderBoard users={users} />} />
           </>
-        )}
+        ) : <Nav />}
       </div>
     );
   }
 }
 
-const mapStateToProps = ({ authedUser, ui }) => ({
+const mapStateToProps = ({ authedUser, ui, users }) => ({
   appLoaded: ui.appLoaded,
   authedUser,
+  users,
 });
 
 export default connect(mapStateToProps)(App);
@@ -53,4 +56,6 @@ App.propTypes = {
   dispatch: PropTypes.func.isRequired,
   appLoaded: PropTypes.bool.isRequired,
   authedUser: PropTypes.string.isRequired,
+  // eslint-disable-next-line react/forbid-prop-types
+  users: PropTypes.object.isRequired,
 };
