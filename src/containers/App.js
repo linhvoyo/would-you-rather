@@ -34,7 +34,7 @@ class App extends React.Component {
           <>
             <Route path="/" exact component={HomePage} />
             <Route path="/add" exact render={() => <CreateQuestion onCreateQuestion={this.createQuestionHandler} />} />
-            <Poll match={{ params: { id: '6ni6ok3ym7mf1p33lnez' } }} />
+            <Route path="/question/:id" component={Poll} />
           </>
         )}
       </div>

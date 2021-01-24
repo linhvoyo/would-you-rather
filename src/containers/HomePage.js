@@ -18,7 +18,8 @@ class HomePage extends React.Component {
   }
 
   viewPollHandler = (id) => {
-    console.log(`Submit Poll ${id}`);
+    const { history: { push } } = this.props;
+    push(`/question/${id}`);
   };
 
   toggleTypeHandler = () => {
@@ -75,4 +76,6 @@ HomePage.propTypes = {
   // eslint-disable-next-line react/forbid-prop-types
   users: PropTypes.object.isRequired,
   authedUser: PropTypes.string.isRequired,
+  // eslint-disable-next-line react/forbid-prop-types
+  history: PropTypes.object.isRequired,
 };
