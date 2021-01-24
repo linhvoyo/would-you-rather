@@ -9,7 +9,7 @@ export default function PollThumbnail(props) {
     avatar,
     author,
     id,
-    onPollSubmit,
+    onViewPoll,
     text,
   } = props;
 
@@ -20,11 +20,11 @@ export default function PollThumbnail(props) {
         <h3>Would you rather</h3>
         <span>{`${text}...`}</span>
         <Button
-          className="is-primary"
+          className="button is-info is-outlined"
           type="submit"
-          onClick={() => onPollSubmit(id)}
+          onClick={() => onViewPoll(id)}
         >
-          Submit
+          View Poll
         </Button>
       </div>
     </div>
@@ -36,5 +36,5 @@ PollThumbnail.propTypes = {
   author: PropTypes.string.isRequired,
   text: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
-  onPollSubmit: PropTypes.func.isRequired,
+  onViewPoll: PropTypes.func.isRequired,
 };

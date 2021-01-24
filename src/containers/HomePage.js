@@ -17,7 +17,7 @@ class HomePage extends React.Component {
     };
   }
 
-  submitPollHandler = (id) => {
+  viewPollHandler = (id) => {
     console.log(`Submit Poll ${id}`);
   };
 
@@ -49,7 +49,7 @@ class HomePage extends React.Component {
                 author={q.author}
                 avatar={users[q.author].avatarURL}
                 id={q.id}
-                onPollSubmit={this.submitPollHandler}
+                onViewPoll={this.viewPollHandler}
                 text={q.optionOne.text || q.optionTwo.text}
               />
             </li>

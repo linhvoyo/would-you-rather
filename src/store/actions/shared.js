@@ -11,10 +11,10 @@ const appLoading = () => ({ type: APP_LOADING });
 const appLoaded = () => ({ type: APP_LOADED });
 
 export const initApp = () => async (dispatch) => {
-  dispatch(appLoading());
   dispatch(showLoading());
+  dispatch(appLoading());
   await dispatch(handleGetUsers());
   await dispatch(handleGetQuestions());
-  dispatch(appLoaded());
   dispatch(hideLoading());
+  dispatch(appLoaded());
 };

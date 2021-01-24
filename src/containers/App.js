@@ -9,6 +9,7 @@ import { initApp, authenticateUser } from '../store/actions';
 import HomePage from './HomePage';
 import Nav from '../components/Nav';
 import CreateQuestion from '../components/CreateQuestion';
+import Poll from './Poll';
 
 class App extends React.Component {
   componentDidMount() {
@@ -33,6 +34,7 @@ class App extends React.Component {
           <>
             <Route path="/" exact component={HomePage} />
             <Route path="/add" exact render={() => <CreateQuestion onCreateQuestion={this.createQuestionHandler} />} />
+            <Poll match={{ params: { id: '6ni6ok3ym7mf1p33lnez' } }} />
           </>
         )}
       </div>

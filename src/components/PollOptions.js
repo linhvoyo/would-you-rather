@@ -1,0 +1,32 @@
+import React from 'react';
+import PropTypes from 'prop-types';
+import { Button } from 'react-bulma-components';
+
+import './PollOptions.css';
+
+const PollOptions = (props) => {
+  const { optOne, optTwo } = props;
+  return (
+    <form className="poll-form">
+      <h4>Would You Rather...</h4>
+      <label htmlFor="optOne">
+        <input type="radio" id="optOne" name="poll" value={optOne} readOnly />
+        &nbsp;
+        {optOne}
+      </label>
+      <label htmlFor="optTwo">
+        <input type="radio" id="optTwo" name="poll" value={optTwo} readOnly />
+        &nbsp;
+        {optTwo}
+      </label>
+      <Button className="is-primary" type="submit">Submit</Button>
+    </form>
+  );
+};
+
+export default PollOptions;
+
+PollOptions.propTypes = {
+  optOne: PropTypes.string.isRequired,
+  optTwo: PropTypes.string.isRequired,
+};
