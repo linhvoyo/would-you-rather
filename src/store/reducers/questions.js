@@ -1,8 +1,13 @@
-import { GET_QUESTIONS, UPDATE_QUESTIONS_ON_QUESTION_SAVE } from '../actions';
+import {
+  GET_QUESTIONS,
+  CREATE_QUESTION,
+  UPDATE_QUESTIONS_ON_QUESTION_SAVE,
+} from '../actions';
 
 export default function questions(state = {}, action) {
   switch (action.type) {
     case GET_QUESTIONS: return { ...state, ...action.questions };
+    case CREATE_QUESTION: return { ...state, [action.question.id]: { ...action.question } };
     case UPDATE_QUESTIONS_ON_QUESTION_SAVE: return {
       ...state,
       [action.qid]: {
