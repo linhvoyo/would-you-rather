@@ -2,12 +2,10 @@ import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import LoadingBar from 'react-redux-loading';
-import { Route } from 'react-router-dom';
+import { Route, Redirect } from 'react-router-dom';
 
 import './App.css';
 import {
-  initApp,
-  authenticateUser,
   handleCreateQuestion,
 } from '../store/actions';
 import HomePage from './HomePage';
@@ -15,17 +13,12 @@ import Nav from '../components/Nav';
 import CreateQuestion from '../components/CreateQuestion';
 import Poll from './Poll';
 import LeaderBoard from '../components/LeaderBoard';
+import LogIn from './LogIn';
 
+// eslint-disable-next-line react/prefer-stateless-function
 class App extends React.Component {
-  componentDidMount() {
-    const { dispatch } = this.props;
-    dispatch(authenticateUser());
-    dispatch(initApp());
-  }
-
   render() {
     const {
-      appLoaded,
       authedUser,
       dispatch,
       users,
@@ -34,10 +27,13 @@ class App extends React.Component {
     return (
       <div className="App">
         <LoadingBar />
-        {(authedUser && appLoaded) ? (
+        <Route path="/login" exact component={LogIn} />
+        {!authedUser ? <Redirect to="/login" /> : (
           <>
             <Nav name={users[authedUser].name} avatarURL={users[authedUser].avatarURL} />
             <Route path="/" exact component={HomePage} />
+            <Route path="/question/:id" component={Poll} />
+            <Route path="/leaderboard" exact render={() => <LeaderBoard users={users} />} />
             <Route
               path="/add"
               exact
@@ -50,10 +46,8 @@ class App extends React.Component {
                 />
               )}
             />
-            <Route path="/question/:id" component={Poll} />
-            <Route path="/leaderboard" exact render={() => <LeaderBoard users={users} />} />
           </>
-        ) : <Nav />}
+        )}
       </div>
     );
   }
@@ -69,9 +63,7 @@ export default connect(mapStateToProps)(App);
 
 App.propTypes = {
   dispatch: PropTypes.func.isRequired,
-  appLoaded: PropTypes.bool.isRequired,
   authedUser: PropTypes.string.isRequired,
   // eslint-disable-next-line react/forbid-prop-types
   users: PropTypes.object.isRequired,
-  // eslint-disable-next-line react/forbid-prop-types
 };

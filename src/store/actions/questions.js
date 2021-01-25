@@ -1,3 +1,4 @@
+import { showLoading, hideLoading } from 'react-redux-loading';
 import { _getQuestions, _saveQuestion } from '../../api/_DATA';
 
 export const GET_QUESTIONS = 'GET_QUESTIONS';
@@ -15,10 +16,14 @@ export const updateQuestionsOnQuestionSave = (authedUser, qid, answer) => ({
   answer,
 });
 
-export const handleGetQuestions = () => (dispatch) => _getQuestions()
-  .then((questions) => {
-    dispatch(getQuestions(questions));
-  });
+export const handleGetQuestions = () => (dispatch) => {
+  dispatch(showLoading());
+  return _getQuestions()
+    .then((questions) => {
+      dispatch(getQuestions(questions));
+      dispatch(hideLoading());
+    });
+};
 
 export const handleCreateQuestion = (optionOneText, optionTwoText) => (dispatch, getState) => {
   const { authedUser: author } = getState();

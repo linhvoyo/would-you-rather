@@ -6,6 +6,8 @@ import { Button } from 'react-bulma-components';
 import './HomePage.css';
 import PollThumbnail from '../components/PollThumbnail';
 
+import { handleGetQuestions } from '../store/actions';
+
 class HomePage extends React.Component {
   constructor(props) {
     super(props);
@@ -15,6 +17,11 @@ class HomePage extends React.Component {
     this.state = {
       type: this.answered,
     };
+  }
+
+  componentDidMount() {
+    const { dispatch } = this.props;
+    dispatch(handleGetQuestions());
   }
 
   viewPollHandler = (id) => {
@@ -78,4 +85,5 @@ HomePage.propTypes = {
   authedUser: PropTypes.string.isRequired,
   // eslint-disable-next-line react/forbid-prop-types
   history: PropTypes.object.isRequired,
+  dispatch: PropTypes.func.isRequired,
 };
