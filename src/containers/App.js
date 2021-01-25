@@ -7,6 +7,7 @@ import { Route, Redirect } from 'react-router-dom';
 import './App.css';
 import {
   createQuestion,
+  logOut,
 } from '../store/actions';
 import HomePage from './HomePage';
 import Nav from '../components/Nav';
@@ -30,7 +31,11 @@ class App extends React.Component {
         <Route path="/login" exact component={LogIn} />
         {!authedUser ? <Redirect to="/login" /> : (
           <>
-            <Nav name={users[authedUser].name} avatarURL={users[authedUser].avatarURL} />
+            <Nav
+              name={users[authedUser].name}
+              avatarURL={users[authedUser].avatarURL}
+              onLogOut={() => dispatch(logOut())}
+            />
             <Route path="/" exact component={HomePage} />
             <Route path="/question/:id" component={Poll} />
             <Route path="/leaderboard" exact render={() => <LeaderBoard users={users} />} />
