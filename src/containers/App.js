@@ -6,7 +6,7 @@ import { Route, Redirect } from 'react-router-dom';
 
 import './App.css';
 import {
-  handleCreateQuestion,
+  createQuestion,
 } from '../store/actions';
 import HomePage from './HomePage';
 import Nav from '../components/Nav';
@@ -40,7 +40,7 @@ class App extends React.Component {
               render={({ history }) => (
                 <CreateQuestion
                   onCreateQuestion={async (opt1, opt2) => {
-                    await dispatch(handleCreateQuestion(opt1, opt2));
+                    await dispatch(createQuestion(opt1, opt2));
                     history.push('/');
                   }}
                 />

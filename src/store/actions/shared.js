@@ -1,13 +1,15 @@
 import { showLoading, hideLoading } from 'react-redux-loading';
 
-import { _saveQuestionAnswer } from '../../api/_DATA';
+import { _saveQuestionAnswer, _saveQuestion } from '../../api/_DATA';
 import {
   handleGetUsers,
-  updateUsersOnQuestionSave,
+  updateUserOnQuestionSave,
+  updateUserOncreate,
 } from './users';
 import {
   handleGetQuestions,
-  updateQuestionsOnQuestionSave,
+  updateQuestionOnQuestionSave,
+  updateQuestionOnCreate,
 } from './questions';
 
 export const APP_LOADING = 'APP_LOADING';
@@ -36,8 +38,17 @@ export const saveQuestion = (qid, answer) => (dispatch, getState) => {
   dispatch(savingQuestionAnswer());
   const { authedUser } = getState();
   return _saveQuestionAnswer({ authedUser, qid, answer }).then(() => {
-    dispatch(updateQuestionsOnQuestionSave(authedUser, qid, answer));
-    dispatch(updateUsersOnQuestionSave(authedUser, qid, answer));
+    dispatch(updateQuestionOnQuestionSave(authedUser, qid, answer));
+    dispatch(updateUserOnQuestionSave(authedUser, qid, answer));
     dispatch(savedQuestionAnswer());
   });
+};
+
+export const createQuestion = (optionOneText, optionTwoText) => (dispatch, getState) => {
+  const { authedUser: author } = getState();
+  return _saveQuestion({ author, optionOneText, optionTwoText })
+    .then((res) => {
+      dispatch(updateQuestionOnCreate(res));
+      dispatch(updateUserOncreate(author, res.id));
+    });
 };

@@ -3,17 +3,24 @@ import { _getUsers } from '../../api/_DATA';
 
 export const AUTH_USER = 'AUTH_USER';
 export const GET_USERS = 'GET_USERS';
-export const UPDATE_USERS_ON_QUESTION_SAVE = 'UPDATE_USERS_ON_QUESTION_SAVE';
+export const UPDATE_USER_ON_QUESTION_SAVE = 'UPDATE_USER_ON_QUESTION_SAVE';
+export const UPDATE_USER_ON_CREATE = 'UPDATE_USER_ON_CREATE';
 
 const authenticatedUser = (id) => ({ type: AUTH_USER, id });
 
 const getUsers = (users) => ({ type: GET_USERS, users });
 
-export const updateUsersOnQuestionSave = (authedUser, qid, answer) => ({
-  type: UPDATE_USERS_ON_QUESTION_SAVE,
+export const updateUserOnQuestionSave = (authedUser, qid, answer) => ({
+  type: UPDATE_USER_ON_QUESTION_SAVE,
   authedUser,
   qid,
   answer,
+});
+
+export const updateUserOncreate = (author, id) => ({
+  type: UPDATE_USER_ON_CREATE,
+  author,
+  id,
 });
 
 const TEMP_USER = 'johndoe';
