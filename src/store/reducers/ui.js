@@ -3,7 +3,7 @@ import {
   APP_LOADING,
   SAVING_QUESTION_ANSWER,
   SAVED_QUESTION_ANSWER,
-} from '../actions';
+} from '../actions/types';
 
 const intialState = {
   appLoaded: false,

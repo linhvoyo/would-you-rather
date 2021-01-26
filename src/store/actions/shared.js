@@ -12,10 +12,12 @@ import {
   updateQuestionOnCreate,
 } from './questions';
 
-export const APP_LOADING = 'APP_LOADING';
-export const APP_LOADED = 'APP_LOADED';
-export const SAVING_QUESTION_ANSWER = 'SAVING_QUESTION_ANSWER';
-export const SAVED_QUESTION_ANSWER = 'SAVED_QUESTION_ANSWER';
+import {
+  APP_LOADING,
+  APP_LOADED,
+  SAVING_QUESTION_ANSWER,
+  SAVED_QUESTION_ANSWER,
+} from './types';
 
 const appLoading = () => ({ type: APP_LOADING });
 

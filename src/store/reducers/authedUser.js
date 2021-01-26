@@ -1,7 +1,7 @@
 import {
   AUTH_USER,
   LOG_OUT,
-} from '../actions';
+} from '../actions/types';
 
 export default function authedUser(state = '', action) {
   switch (action.type) {

@@ -1,8 +1,9 @@
 import {
   GET_QUESTIONS,
+  LOG_OUT,
   UPDATE_QUESTION_ON_CREATE,
   UPDATE_QUESTION_ON_QUESTION_SAVE,
-} from '../actions';
+} from '../actions/types';
 
 export default function questions(state = {}, action) {
   switch (action.type) {
@@ -21,6 +22,7 @@ export default function questions(state = {}, action) {
         },
       },
     };
+    case LOG_OUT: return {};
     default: return state;
   }
 }
