@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { Redirect } from 'react-router-dom';
 
 import { Button } from 'react-bulma-components';
 import './HomePage.css';
@@ -37,6 +38,8 @@ class HomePage extends React.Component {
   render() {
     const { questions, users, authedUser } = this.props;
     const { type } = this.state;
+
+    if (!authedUser) return <Redirect to="/login" />;
 
     const answeredQs = questions.filter((q) => q.answeredBy.includes(authedUser));
     const unansweredQs = questions.filter((q) => !q.answeredBy.includes(authedUser));

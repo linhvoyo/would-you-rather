@@ -29,30 +29,34 @@ class App extends React.Component {
       <div className="App">
         <LoadingBar />
         <Route path="/login" exact component={LogIn} />
-        {!authedUser ? <Redirect to="/login" /> : (
-          <>
-            <Nav
-              name={users[authedUser].name}
-              avatarURL={users[authedUser].avatarURL}
-              onLogOut={() => dispatch(logOut())}
-            />
-            <Route path="/" exact component={HomePage} />
-            <Route path="/question/:id" component={Poll} />
-            <Route path="/leaderboard" exact render={() => <LeaderBoard users={users} />} />
-            <Route
-              path="/add"
-              exact
-              render={({ history }) => (
-                <CreateQuestion
-                  onCreateQuestion={async (opt1, opt2) => {
-                    await dispatch(createQuestion(opt1, opt2));
-                    history.push('/');
-                  }}
-                />
-              )}
-            />
-          </>
+        {authedUser && (
+          <Nav
+            name={users[authedUser].name}
+            avatarURL={users[authedUser].avatarURL}
+            onLogOut={() => dispatch(logOut())}
+          />
         )}
+        <Route path="/" exact component={HomePage} />
+        <Route path="/question/:id" component={Poll} />
+        <Route
+          path="/leaderboard"
+          exact
+          render={() => (authedUser ? <LeaderBoard users={users} /> : <Redirect to="/login" />)}
+        />
+        <Route
+          path="/add"
+          exact
+          render={({ history }) => (
+            authedUser ? (
+              <CreateQuestion
+                onCreateQuestion={async (opt1, opt2) => {
+                  await dispatch(createQuestion(opt1, opt2));
+                  history.push('/');
+                }}
+              />
+            ) : <Redirect to="/login" />
+          )}
+        />
       </div>
     );
   }

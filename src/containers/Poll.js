@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { Redirect } from 'react-router-dom';
 
 import './Poll.css';
 import PollOptions from '../components/PollOptions';
@@ -44,6 +45,7 @@ class Poll extends React.Component {
       question,
     } = this.props;
 
+    if (!authedUser) return <Redirect to="/login" />;
     return (
       <div className="Poll">
         <h2 className="subtitle">{`${name} asks:`}</h2>
