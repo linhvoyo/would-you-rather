@@ -6,14 +6,12 @@ import { Route, Redirect } from 'react-router-dom';
 
 import './App.css';
 import {
-  createQuestion,
   logOut,
   handleGetUsers,
-  routeChange,
 } from '../store/actions';
 import HomePage from './HomePage';
 import Nav from '../components/Nav';
-import CreateQuestion from '../components/CreateQuestion';
+import CreateQuestion from './CreateQuestion';
 import Poll from './Poll';
 import LeaderBoard from '../components/LeaderBoard';
 import LogIn from './LogIn';
@@ -49,19 +47,7 @@ class App extends React.Component {
         <Route path="/" exact component={HomePage} />
         <Route path="/question/:id" component={Poll} />
         <Route path="/leaderboard" exact render={() => <LeaderBoard users={users} />} />
-        <Route
-          path="/add"
-          exact
-          render={({ history }) => (
-            <CreateQuestion
-              authedUser={authedUser}
-              onCreateQuestion={async (opt1, opt2) => {
-                await dispatch(createQuestion(opt1, opt2));
-                history.push('/');
-              }}
-            />
-          )}
-        />
+        <Route path="/add" exact component={CreateQuestion} />
       </div>
     );
   }

@@ -1,5 +1,5 @@
-.HomePage {
-  display: grid;
+.HomePage > * {
+  margin-bottom: 50px;
 }
 
 .toggle-type {

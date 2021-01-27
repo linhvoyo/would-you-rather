@@ -3,12 +3,12 @@ import { loadingBarReducer } from 'react-redux-loading';
 import questions from './questions';
 import users from './users';
 import authedUser from './authedUser';
-import route from './route';
+import ui from './ui';
 
 export default combineReducers({
   questions,
   users,
   authedUser,
-  route,
+  ui,
   loadingBar: loadingBarReducer,
 });

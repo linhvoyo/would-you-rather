@@ -6,7 +6,7 @@ import { Redirect } from 'react-router-dom';
 import { Button } from 'react-bulma-components';
 import './HomePage.css';
 import PollThumbnail from '../components/PollThumbnail';
-
+import Spinner from '../components/UI/Spinner';
 import { handleGetQuestions } from '../store/actions';
 
 class HomePage extends React.Component {
@@ -34,7 +34,7 @@ class HomePage extends React.Component {
     const { questions, users, authedUser } = this.props;
     const { type } = this.state;
 
-    if (!authedUser) return <Redirect to="/login" />;
+    if (!authedUser) return <Redirect to={{ pathname: '/login', state: { from: '/' } }} />;
 
     const answeredQs = questions.filter((q) => q.answeredBy.includes(authedUser));
     const unansweredQs = questions.filter((q) => !q.answeredBy.includes(authedUser));
@@ -47,20 +47,20 @@ class HomePage extends React.Component {
         <Button className="toggle-type" onClick={this.toggleTypeHandler}>
           {type === this.answered ? 'View Unanswered' : 'View Answered'}
         </Button>
-        <ul>
-          <h1 className="subtitle">{`${type} Questions`}</h1>
-          {showQuestions.map((q) => (
-            <li key={q.id}>
-              <PollThumbnail
-                author={q.author}
-                avatar={users[q.author].avatarURL}
-                id={q.id}
-                onViewPoll={this.viewPollHandler}
-                text={q.optionOne.text || q.optionTwo.text}
-              />
-            </li>
-          ))}
-        </ul>
+        <h1 className="subtitle">{`${type} Questions`}</h1>
+        <div className="poll">
+          {showQuestions.length ? showQuestions.map((q) => (
+            <PollThumbnail
+              key={q.id}
+              author={q.author}
+              avatar={users[q.author].avatarURL}
+              id={q.id}
+              onViewPoll={this.viewPollHandler}
+              text={q.optionOne.text || q.optionTwo.text}
+            />
+          ))
+            : <Spinner />}
+        </div>
       </div>
     );
   }
