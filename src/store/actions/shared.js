@@ -1,48 +1,20 @@
-import { showLoading, hideLoading } from 'react-redux-loading';
-
 import { _saveQuestionAnswer, _saveQuestion } from '../../api/_DATA';
 import {
-  handleGetUsers,
   updateUserOnQuestionSave,
   updateUserOncreate,
+  authenticateUser,
 } from './users';
 import {
-  handleGetQuestions,
   updateQuestionOnQuestionSave,
   updateQuestionOnCreate,
+  handleGetQuestions,
 } from './questions';
 
-import {
-  APP_LOADING,
-  APP_LOADED,
-  SAVING_QUESTION_ANSWER,
-  SAVED_QUESTION_ANSWER,
-} from './types';
-
-const appLoading = () => ({ type: APP_LOADING });
-
-const appLoaded = () => ({ type: APP_LOADED });
-
-const savingQuestionAnswer = () => ({ type: SAVING_QUESTION_ANSWER });
-
-const savedQuestionAnswer = () => ({ type: SAVED_QUESTION_ANSWER });
-
-export const initApp = () => async (dispatch) => {
-  dispatch(showLoading());
-  dispatch(appLoading());
-  await dispatch(handleGetUsers());
-  await dispatch(handleGetQuestions());
-  dispatch(hideLoading());
-  dispatch(appLoaded());
-};
-
 export const saveQuestion = (qid, answer) => (dispatch, getState) => {
-  dispatch(savingQuestionAnswer());
   const { authedUser } = getState();
   return _saveQuestionAnswer({ authedUser, qid, answer }).then(() => {
     dispatch(updateQuestionOnQuestionSave(authedUser, qid, answer));
     dispatch(updateUserOnQuestionSave(authedUser, qid, answer));
-    dispatch(savedQuestionAnswer());
   });
 };
 
@@ -54,3 +26,6 @@ export const createQuestion = (optionOneText, optionTwoText) => (dispatch, getSt
       dispatch(updateUserOncreate(author, res.id));
     });
 };
+
+export const logIn = (id) => async (dispatch) => dispatch(authenticateUser(id))
+  .then(() => { dispatch(handleGetQuestions()); });

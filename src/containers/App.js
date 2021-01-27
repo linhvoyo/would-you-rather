@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import LoadingBar from 'react-redux-loading';
@@ -8,6 +8,8 @@ import './App.css';
 import {
   createQuestion,
   logOut,
+  handleGetUsers,
+  routeChange,
 } from '../store/actions';
 import HomePage from './HomePage';
 import Nav from '../components/Nav';
@@ -16,8 +18,12 @@ import Poll from './Poll';
 import LeaderBoard from '../components/LeaderBoard';
 import LogIn from './LogIn';
 
-// eslint-disable-next-line react/prefer-stateless-function
 class App extends React.Component {
+  componentDidMount() {
+    const { dispatch } = this.props;
+    dispatch(handleGetUsers());
+  }
+
   render() {
     const {
       authedUser,
@@ -25,36 +31,35 @@ class App extends React.Component {
       users,
     } = this.props;
 
+    console.log(Object.entries(users).length);
     return (
       <div className="App">
         <LoadingBar />
+        {!authedUser ? <Nav />
+          : (
+            <Nav
+              name={users[authedUser].name}
+              avatarURL={users[authedUser].avatarURL}
+              onLogOut={() => dispatch(logOut())}
+              authUser={authedUser}
+            />
+          )}
+        {!authedUser && <Redirect to="/login" />}
         <Route path="/login" exact component={LogIn} />
-        {authedUser && (
-          <Nav
-            name={users[authedUser].name}
-            avatarURL={users[authedUser].avatarURL}
-            onLogOut={() => dispatch(logOut())}
-          />
-        )}
         <Route path="/" exact component={HomePage} />
         <Route path="/question/:id" component={Poll} />
-        <Route
-          path="/leaderboard"
-          exact
-          render={() => (authedUser ? <LeaderBoard users={users} /> : <Redirect to="/login" />)}
-        />
+        <Route path="/leaderboard" exact render={() => <LeaderBoard users={users} />} />
         <Route
           path="/add"
           exact
           render={({ history }) => (
-            authedUser ? (
-              <CreateQuestion
-                onCreateQuestion={async (opt1, opt2) => {
-                  await dispatch(createQuestion(opt1, opt2));
-                  history.push('/');
-                }}
-              />
-            ) : <Redirect to="/login" />
+            <CreateQuestion
+              authedUser={authedUser}
+              onCreateQuestion={async (opt1, opt2) => {
+                await dispatch(createQuestion(opt1, opt2));
+                history.push('/');
+              }}
+            />
           )}
         />
       </div>
@@ -62,8 +67,7 @@ class App extends React.Component {
   }
 }
 
-const mapStateToProps = ({ authedUser, ui, users }) => ({
-  appLoaded: ui.appLoaded,
+const mapStateToProps = ({ authedUser, users }) => ({
   authedUser,
   users,
 });

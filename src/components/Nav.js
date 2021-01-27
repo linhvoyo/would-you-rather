@@ -6,7 +6,13 @@ import { Button } from 'react-bulma-components';
 import './Nav.css';
 
 export default function Nav(props) {
-  const { name, avatarURL, onLogOut } = props;
+  const {
+    name,
+    avatarURL,
+    onLogOut,
+    authUser,
+  } = props;
+
   return (
     <nav className="navbar">
       <div className="navbar-start">
@@ -14,19 +20,29 @@ export default function Nav(props) {
         <NavLink to="/add" exact className="navbar-item" activeClassName="active">New Question</NavLink>
         <NavLink to="/leaderboard" exact className="navbar-item" activeClassName="active">Leader Board</NavLink>
       </div>
-      <div className="navbar-end">
-        <span className="navbar-item">{`Hello, ${name}`}</span>
-        <img className="avatar" alt={`Avatar of ${avatarURL}`} src={avatarURL} />
-        <span className="navbar-item">
-          <Button type="button" onClick={onLogOut}>Logout</Button>
-        </span>
-      </div>
+      {authUser && (
+        <div className="navbar-end">
+          <span className="navbar-item">{`Hello, ${name}`}</span>
+          <img className="avatar" alt={`Avatar of ${avatarURL}`} src={avatarURL} />
+          <span className="navbar-item">
+            <Button type="button" onClick={onLogOut}>Logout</Button>
+          </span>
+        </div>
+      )}
     </nav>
   );
 }
 
 Nav.propTypes = {
-  name: PropTypes.string.isRequired,
-  avatarURL: PropTypes.string.isRequired,
-  onLogOut: PropTypes.func.isRequired,
+  authUser: PropTypes.string,
+  name: PropTypes.string,
+  avatarURL: PropTypes.string,
+  onLogOut: PropTypes.func,
+};
+
+Nav.defaultProps = {
+  authUser: null,
+  name: null,
+  avatarURL: null,
+  onLogOut: null,
 };

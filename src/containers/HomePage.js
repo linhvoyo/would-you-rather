@@ -13,16 +13,11 @@ class HomePage extends React.Component {
   constructor(props) {
     super(props);
     this.answered = 'Answered';
-    this.unanswer = 'Unanswered';
+    this.unanswered = 'Unanswered';
 
     this.state = {
-      type: this.answered,
+      type: this.unanswered,
     };
-  }
-
-  componentDidMount() {
-    const { dispatch } = this.props;
-    dispatch(handleGetQuestions());
   }
 
   viewPollHandler = (id) => {
@@ -32,7 +27,7 @@ class HomePage extends React.Component {
 
   toggleTypeHandler = () => {
     this.setState((prev) => (
-      { type: prev.type === this.answered ? this.unanswer : this.answered }));
+      { type: prev.type === this.answered ? this.unanswered : this.answered }));
   };
 
   render() {
@@ -75,7 +70,8 @@ const mapPropsToState = ({ questions, users, authedUser }) => ({
   authedUser,
   users,
   questions: Object.values(questions)
-    .map((q) => ({ ...q, answeredBy: [...q.optionOne.votes, ...q.optionTwo.votes] })),
+    .map((q) => ({ ...q, answeredBy: [...q.optionOne.votes, ...q.optionTwo.votes] }))
+    .sort((a, b) => b.timestamp - a.timestamp),
 });
 
 export default connect(mapPropsToState)(HomePage);
@@ -88,5 +84,4 @@ HomePage.propTypes = {
   authedUser: PropTypes.string.isRequired,
   // eslint-disable-next-line react/forbid-prop-types
   history: PropTypes.object.isRequired,
-  dispatch: PropTypes.func.isRequired,
 };

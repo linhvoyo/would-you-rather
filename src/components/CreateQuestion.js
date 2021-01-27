@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { Redirect } from 'react-router-dom';
 
 import { Button } from 'react-bulma-components';
 import './CreateQuestion.css';
@@ -9,7 +10,10 @@ const CreateQuestion = (props) => {
     buttonLoading: false,
   });
 
-  const { onCreateQuestion } = props;
+  const {
+    authedUser,
+    onCreateQuestion,
+  } = props;
 
   const optOneInput = React.useRef(null);
   const optTwoInput = React.useRef(null);
@@ -29,6 +33,8 @@ const CreateQuestion = (props) => {
       setState({ buttonLoading: true });
     }
   }
+
+  if (!authedUser) return <Redirect to="/login" />;
 
   return (
     <div className="Add">
@@ -59,4 +65,9 @@ export default CreateQuestion;
 
 CreateQuestion.propTypes = {
   onCreateQuestion: PropTypes.func.isRequired,
+  authedUser: PropTypes.string,
+};
+
+CreateQuestion.defaultProps = {
+  authedUser: null,
 };

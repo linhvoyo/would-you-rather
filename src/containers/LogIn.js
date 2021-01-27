@@ -4,22 +4,14 @@ import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import { Button } from 'react-bulma-components';
-import {
-  handleGetUsers,
-  authenticateUser,
-} from '../store/actions';
+import { logIn } from '../store/actions';
 
 class LogIn extends React.Component {
-  componentDidMount() {
-    const { dispatch } = this.props;
-    dispatch(handleGetUsers());
-  }
-
   signInHandler = (event) => {
     event.preventDefault();
     const user = event.target.user.value;
     const { dispatch } = this.props;
-    dispatch(authenticateUser(user));
+    dispatch(logIn(user));
   };
 
   render() {

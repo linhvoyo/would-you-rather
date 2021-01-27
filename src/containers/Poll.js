@@ -28,12 +28,11 @@ class Poll extends React.Component {
     const {
       dispatch,
       question: { id },
-      history: { push },
     } = this.props;
     event.preventDefault();
     const answer = event.target.poll.value;
     await dispatch(saveQuestion(id, answer));
-    push('/');
+    this.setState({ answered: answer });
   };
 
   render() {
@@ -72,6 +71,7 @@ class Poll extends React.Component {
 
 const mapStateToProps = ({ authedUser, questions, users }, props) => {
   const { id } = props.match.params;
+  console.log(id);
   const { name, avatarURL } = users[questions[id].author];
   return {
     authedUser,
@@ -91,6 +91,4 @@ Poll.propTypes = {
   avatarURL: PropTypes.string.isRequired,
   authedUser: PropTypes.string.isRequired,
   dispatch: PropTypes.func.isRequired,
-  // eslint-disable-next-line react/forbid-prop-types
-  history: PropTypes.object.isRequired,
 };
