@@ -1,8 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import './PollResults.css';
-
 const PollResults = (props) => {
   const { authedUser, options } = props;
   const totalVotes = options.reduce((acc, curr) => acc + curr.votes.length, 0);
@@ -11,7 +9,7 @@ const PollResults = (props) => {
       <h4>Results:</h4>
       {options.map((opt) => (
         <div className="option" key={opt.text}>
-          <span className="question">{`${opt.text} ?`}</span>
+          <div className="question">{`${opt.text} ?`}</div>
           {opt.votes.includes(authedUser) && <div className="user-vote"><p>Your Vote</p></div>}
           <div className="progress-bar">
             <span>{`${((opt.votes.length / totalVotes) * 100).toFixed(2)} %`}</span>

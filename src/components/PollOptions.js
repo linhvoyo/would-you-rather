@@ -2,8 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Button } from 'react-bulma-components';
 
-import './PollOptions.css';
-
 const PollOptions = (props) => {
   const { optOne, optTwo, onPollSubmit } = props;
   return (

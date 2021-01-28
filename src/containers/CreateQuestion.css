@@ -1,7 +1,13 @@
-form.create-question {
-  display: grid;
-  width: 400px;
-  margin-left: 30%;
-  /* grid-auto-flow: column;
-  grid-column-gap: 10px; */
+.Add {
+  width: 573px;
+  margin: 0 auto;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 16px;
 }
+
+.Add form.create-question > * {
+  display: block;
+  width: 500px;
+  margin: 10px auto 0 auto;
+};

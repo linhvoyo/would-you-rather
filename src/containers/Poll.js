@@ -71,7 +71,15 @@ class Poll extends React.Component {
             </div>
           </>
         )
-          : <span>{`Selected question no longer exists: ${id}`}</span>}
+          : (
+            <span>
+              Selected question no longer exists:
+              <strong>
+                &nbsp;
+                {id}
+              </strong>
+            </span>
+          )}
       </div>
     );
   }

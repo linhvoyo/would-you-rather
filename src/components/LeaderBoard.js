@@ -15,25 +15,27 @@ const LeaderBoard = (props) => {
     <div className="LeaderBoard">
       {sortedUsers.map((user) => (
         <div className="user" key={user.id}>
-          <img className="avatar" alt={`Avatar of ${user.avatarURL}`} src={user.avatarURL} />
+          <img className="thumbnail-img" alt={`Avatar of ${user.avatarURL}`} src={user.avatarURL} />
           <div className="user-info">
-            <span>{user.name}</span>
-            <table>
-              <tbody>
-                <tr>
-                  <td>Answered Question</td>
-                  <td>{Object.keys(user.answers).length}</td>
-                </tr>
-                <tr>
-                  <td>Created Question</td>
-                  <td>{user.questions.length}</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <div className="user-score">
-            <span>Score</span>
-            <div className="score-number">{user.score}</div>
+            <h3 className="subtitle header">{user.name}</h3>
+            <div className="table-container">
+              <table className="table">
+                <tbody>
+                  <tr>
+                    <td>Answered Question</td>
+                    <td>{Object.keys(user.answers).length}</td>
+                  </tr>
+                  <tr>
+                    <td>Created Question</td>
+                    <td>{user.questions.length}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div className="user-score">
+              <span>Score</span>
+              <div className="score-number">{user.score}</div>
+            </div>
           </div>
         </div>
       ))}
