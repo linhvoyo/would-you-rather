@@ -5,7 +5,7 @@ import { Redirect } from 'react-router-dom';
 
 import { Button } from 'react-bulma-components';
 import './HomePage.css';
-import PollThumbnail from '../components/PollThumbnail';
+import PollInfo from '../components/PollInfo';
 import Spinner from '../components/UI/Spinner';
 import { handleGetQuestions } from '../store/actions';
 
@@ -49,7 +49,7 @@ class HomePage extends React.Component {
         <h1 className="subtitle">{`${type} Questions`}</h1>
         <div className="poll-list">
           {showQuestions.length ? showQuestions.map((q) => (
-            <PollThumbnail
+            <PollInfo
               key={q.id}
               author={q.author}
               avatar={users[q.author].avatarURL}

@@ -1,0 +1,5 @@
+.PollInfo .poll-info *:not(button){
+  display: block;
+  margin-bottom: 10px;
+  text-align: left;
+}

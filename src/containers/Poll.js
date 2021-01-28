@@ -17,19 +17,18 @@ class Poll extends React.Component {
   }
 
   componentDidMount() {
-    const { question, authedUser } = this.props;
-    this.setState({
-      answered: question.optionOne.votes.includes(authedUser)
-        || question.optionTwo.votes.includes(authedUser),
-    });
+    const { authedUser, question } = this.props;
+    if (authedUser && question !== null) {
+      this.setState({
+        answered: question.optionOne.votes.includes(authedUser)
+          || question.optionTwo.votes.includes(authedUser),
+      });
+    }
   }
 
   pollSubmitHandler = async (event) => {
-    const {
-      dispatch,
-      question: { id },
-    } = this.props;
     event.preventDefault();
+    const { dispatch, id } = this.props;
     const answer = event.target.poll.value;
     await dispatch(saveQuestion(id, answer));
     this.setState({ answered: answer });
@@ -39,31 +38,40 @@ class Poll extends React.Component {
     const { answered } = this.state;
     const {
       authedUser,
-      name,
-      avatarURL,
+      id,
       question,
+      author,
     } = this.props;
 
-    if (!authedUser) return <Redirect to="/login" />;
+    if (!authedUser) return <Redirect to={{ pathname: '/login', state: { from: `/question/${id}` } }} />;
     return (
       <div className="Poll poll-container">
-        <img className="thumbnail-img" alt={`Avatar of ${avatarURL}`} src={avatarURL} />
-        <div className="poll-info">
-          <h3 className="subtitle header">{`${name} asks:`}</h3>
-          {answered ? (
-            <PollResults
-              authedUser={authedUser}
-              options={[question.optionOne, question.optionTwo]}
+        {question && answered !== null ? (
+          <>
+            <img
+              className="thumbnail-img"
+              alt={`Avatar of ${author.avatarURL}`}
+              src={author.avatarURL}
             />
-          )
-            : (
-              <PollOptions
-                onPollSubmit={this.pollSubmitHandler}
-                optOne={question.optionOne.text}
-                optTwo={question.optionTwo.text}
-              />
-            )}
-        </div>
+            <div className="poll-info">
+              <h3 className="subtitle header">{`${author.name} asks:`}</h3>
+              {answered ? (
+                <PollResults
+                  authedUser={authedUser}
+                  options={[question.optionOne, question.optionTwo]}
+                />
+              )
+                : (
+                  <PollOptions
+                    onPollSubmit={this.pollSubmitHandler}
+                    optOne={question.optionOne.text}
+                    optTwo={question.optionTwo.text}
+                  />
+                )}
+            </div>
+          </>
+        )
+          : <span>{`Selected question no longer exists: ${id}`}</span>}
       </div>
     );
   }
@@ -71,14 +79,14 @@ class Poll extends React.Component {
 
 const mapStateToProps = ({ authedUser, questions, users }, props) => {
   const { id } = props.match.params;
-  console.log(id);
-  const { name, avatarURL } = users[questions[id].author];
+
+  if (!authedUser) return { id };
+
   return {
     authedUser,
-    question: questions[id],
-    author: users[questions[id].author],
-    name,
-    avatarURL,
+    question: id in questions ? questions[id] : null,
+    author: id in questions ? users[questions[id].author] : null,
+    id,
   };
 };
 
@@ -86,9 +94,17 @@ export default connect(mapStateToProps)(Poll);
 
 Poll.propTypes = {
   // eslint-disable-next-line react/forbid-prop-types
-  question: PropTypes.object.isRequired,
-  name: PropTypes.string.isRequired,
-  avatarURL: PropTypes.string.isRequired,
-  authedUser: PropTypes.string.isRequired,
+  question: PropTypes.object,
+  // eslint-disable-next-line react/forbid-prop-types
+  author: PropTypes.object,
+  authedUser: PropTypes.string,
   dispatch: PropTypes.func.isRequired,
+  id: PropTypes.string,
+};
+
+Poll.defaultProps = {
+  question: null,
+  authedUser: null,
+  author: null,
+  id: '',
 };

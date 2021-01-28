@@ -38,6 +38,6 @@ export const createQuestion = (optionOneText, optionTwoText) => (dispatch, getSt
 export const logIn = (id) => (dispatch) => {
   dispatch(appLoading());
   return dispatch(authenticateUser(id))
-    .then(() => { dispatch(handleGetQuestions()); })
+    .then(async () => { await dispatch(handleGetQuestions()); })
     .finally(() => { dispatch(appLoaded()); });
 };

@@ -3,9 +3,22 @@
   margin-bottom: 10px;
 }
 
-.PollOptions .poll-form > * {
+.PollOptions .poll-form > *:not(button) {
   display: block;
   text-align: left;
+}
+
+.PollResults > * {
+  margin-bottom: 10px;
+};
+
+.PollResults .option {
+  position: relative;
+}
+
+.PollResults .user-vote {
+  position: absolute;
+  font-size: 10px;
 }
 
 .PollResults .progress-bar {
@@ -17,8 +30,8 @@
 .PollResults .user-vote {
   background: lightblue;
   border-radius: 50%;
-  width: 60px;
-  height: 60px;
+  width: 40px;
+  height: 40px;
   display: flex;
   justify-content: center;
   align-items: center;

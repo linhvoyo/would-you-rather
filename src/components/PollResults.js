@@ -14,7 +14,7 @@ const PollResults = (props) => {
           <span className="question">{`${opt.text} ?`}</span>
           {opt.votes.includes(authedUser) && <div className="user-vote"><p>Your Vote</p></div>}
           <div className="progress-bar">
-            <span>{`${(opt.votes.length / totalVotes) * 100} %`}</span>
+            <span>{`${((opt.votes.length / totalVotes) * 100).toFixed(2)} %`}</span>
             <progress
               className="progress is-primary is-large"
               value={opt.votes.length}

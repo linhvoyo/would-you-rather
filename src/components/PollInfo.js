@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { Button } from 'react-bulma-components';
-import './PollThumbnail.css';
+import './PollInfo.css';
 
-export default function PollThumbnail(props) {
+export default function PollInfo(props) {
   const {
     avatar,
     author,
@@ -14,7 +14,7 @@ export default function PollThumbnail(props) {
   } = props;
 
   return (
-    <div className="PollThumbnail poll-container">
+    <div className="PollInfo poll-container">
       <img className="thumbnail-img" alt={`Avatar of ${author}`} src={avatar} />
       <div className="poll-info">
         <h3 className="subtitle header">Would you rather</h3>
@@ -31,7 +31,7 @@ export default function PollThumbnail(props) {
   );
 }
 
-PollThumbnail.propTypes = {
+PollInfo.propTypes = {
   avatar: PropTypes.string.isRequired,
   author: PropTypes.string.isRequired,
   text: PropTypes.string.isRequired,
