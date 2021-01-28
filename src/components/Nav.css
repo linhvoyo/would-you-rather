@@ -1,11 +1,9 @@
-.navbar {
-  margin-top: 3px;
-}
-.navbar-start {
-  display: flex;
-  justify-content: center;
-}
-
 .active, .active:active, .active:focus {
   color: #3273dc;
+}
+
+.avatar {
+  width: 50px;
+  border-radius: 50%;
+  margin: 10px;
 }

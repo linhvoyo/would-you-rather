@@ -1,9 +1,9 @@
-.poll-form {
-  display: grid;
+/* .Poll .header {
+  text-align: left;
+  margin-bottom: 10px;
 }
 
-.avatar {
-  height: 50px;
-  border-radius: 25px;
-  margin: 10px;
-}
+.poll-form > * {
+  display: block;
+  text-align: left;
+} */

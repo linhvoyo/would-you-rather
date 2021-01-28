@@ -14,10 +14,10 @@ export default function PollThumbnail(props) {
   } = props;
 
   return (
-    <div className="PollThumbnail">
-      <img className="avatar" alt={`Avatar of ${author}`} src={avatar} />
+    <div className="PollThumbnail poll-container">
+      <img className="thumbnail-img" alt={`Avatar of ${author}`} src={avatar} />
       <div className="poll-info">
-        <h3>Would you rather</h3>
+        <h3 className="subtitle header">Would you rather</h3>
         <span>{`${text}...`}</span>
         <Button
           className="button is-info is-outlined"

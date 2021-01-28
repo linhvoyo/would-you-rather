@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import LoadingBar from 'react-redux-loading';
 import { Route, Redirect } from 'react-router-dom';
 
 import './App.css';
@@ -29,10 +28,8 @@ class App extends React.Component {
       users,
     } = this.props;
 
-    console.log(Object.entries(users).length);
     return (
       <div className="App">
-        <LoadingBar />
         {!authedUser ? <Nav />
           : (
             <Nav

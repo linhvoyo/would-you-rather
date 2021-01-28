@@ -1,4 +1,3 @@
-import { showLoading, hideLoading } from 'react-redux-loading';
 import { _getUsers } from '../../api/_DATA';
 
 import {
@@ -35,11 +34,7 @@ export const authenticateUser = (id = TEMP_USER) => (dispatch) => _getUsers()
     else throw Error('Invalid user');
   }).catch((e) => alert(e));
 
-export const handleGetUsers = () => (dispatch) => {
-  dispatch(showLoading());
-  return _getUsers()
-    .then((users) => {
-      dispatch(getUsers(users));
-      dispatch(hideLoading());
-    });
-};
+export const handleGetUsers = () => (dispatch) => _getUsers()
+  .then((users) => {
+    dispatch(getUsers(users));
+  });

@@ -1,4 +1,25 @@
-.Poll {
-  border: 1px solid #ccc;
-  border-radius: 16px;
+.Poll .header {
+  text-align: left;
+  margin-bottom: 10px;
+}
+
+.PollOptions .poll-form > * {
+  display: block;
+  text-align: left;
+}
+
+.PollResults .progress-bar {
+  width: 400px;
+}
+.PollResults .progress-bar span {
+  position: absolute;
+}
+.PollResults .user-vote {
+  background: lightblue;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

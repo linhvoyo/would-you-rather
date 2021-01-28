@@ -1,4 +1,3 @@
-import { showLoading, hideLoading } from 'react-redux-loading';
 import { _getQuestions } from '../../api/_DATA';
 
 import {
@@ -27,11 +26,7 @@ export const updateQuestionOnQuestionSave = (authedUser, qid, answer) => ({
   answer,
 });
 
-export const handleGetQuestions = () => (dispatch) => {
-  dispatch(showLoading());
-  return _getQuestions()
-    .then((questions) => {
-      dispatch(getQuestions(questions));
-      dispatch(hideLoading());
-    });
-};
+export const handleGetQuestions = () => (dispatch) => _getQuestions()
+  .then((questions) => {
+    dispatch(getQuestions(questions));
+  });

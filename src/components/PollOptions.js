@@ -7,20 +7,22 @@ import './PollOptions.css';
 const PollOptions = (props) => {
   const { optOne, optTwo, onPollSubmit } = props;
   return (
-    <form className="poll-form" onSubmit={onPollSubmit}>
-      <h4>Would You Rather...</h4>
-      <label htmlFor="optOne">
-        <input type="radio" id="optOne" name="poll" value="optionOne" required />
+    <div className="PollOptions">
+      <form className="poll-form" onSubmit={onPollSubmit}>
+        <h4>Would You Rather...</h4>
+        <label htmlFor="optOne">
+          <input type="radio" id="optOne" name="poll" value="optionOne" required />
         &nbsp;
-        {optOne}
-      </label>
-      <label htmlFor="optTwo">
-        <input type="radio" id="optTwo" name="poll" value="optionTwo" required />
+          {optOne}
+        </label>
+        <label htmlFor="optTwo">
+          <input type="radio" id="optTwo" name="poll" value="optionTwo" required />
         &nbsp;
-        {optTwo}
-      </label>
-      <Button className="is-primary" type="submit">Submit</Button>
-    </form>
+          {optTwo}
+        </label>
+        <Button className="is-primary" type="submit">Submit</Button>
+      </form>
+    </div>
   );
 };
 

@@ -43,12 +43,11 @@ class HomePage extends React.Component {
 
     return (
       <div className="HomePage">
-        <h1 className="title">HomePage</h1>
         <Button className="toggle-type" onClick={this.toggleTypeHandler}>
           {type === this.answered ? 'View Unanswered' : 'View Answered'}
         </Button>
         <h1 className="subtitle">{`${type} Questions`}</h1>
-        <div className="poll">
+        <div className="poll-list">
           {showQuestions.length ? showQuestions.map((q) => (
             <PollThumbnail
               key={q.id}

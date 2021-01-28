@@ -1,11 +1,43 @@
+.PollThumbnail .poll-info * {
+  display: block;
+  margin-bottom: 10px;
+  text-align: left;
+}
+
+/* 
 .PollThumbnail {
+  display: flex;
+  width: 550px;
+  margin: 10px auto 0 auto;
+  padding: 10px ;
   border: 1px solid #ccc;
   border-radius: 16px;
 }
 
-
-.avatar {
-  height: 50px;
-  border-radius: 25px;
-  margin: 10px;
+.PollThumbnail .thumbnail-img {
+  width: 125px;
+  height: 125px;
+  max-height: 175px;
+  max-width: 175px;
+  margin: 0 25px 0 0;
+  border-radius: 16px;
 }
+
+.PollThumbnail .poll-info {
+  height: 100%;
+  vertical-align: middle;
+}
+.PollThumbnail .poll-info * {
+  display: block;
+  margin-bottom: 10px;
+}
+.PollThumbnail .poll-info h3 {
+  font-weight: 600;
+}
+.PollThumbnail .poll-info h3, span {
+  text-align: left;
+}
+
+.PollThumbnail button {
+  width: 378px;
+} */

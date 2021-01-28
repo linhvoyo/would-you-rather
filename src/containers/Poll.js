@@ -46,10 +46,10 @@ class Poll extends React.Component {
 
     if (!authedUser) return <Redirect to="/login" />;
     return (
-      <div className="Poll">
-        <h2 className="subtitle">{`${name} asks:`}</h2>
-        <img className="avatar" alt={`Avatar of ${avatarURL}`} src={avatarURL} />
+      <div className="Poll poll-container">
+        <img className="thumbnail-img" alt={`Avatar of ${avatarURL}`} src={avatarURL} />
         <div className="poll-info">
+          <h3 className="subtitle header">{`${name} asks:`}</h3>
           {answered ? (
             <PollResults
               authedUser={authedUser}
