@@ -1,7 +1,6 @@
 .HomePage > * {
   margin-bottom: 50px;
 }
-
-.toggle-type {
+.HomePage .toggle-type {
   width: 150px;
 }

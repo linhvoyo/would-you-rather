@@ -19,12 +19,10 @@
   border: 1px solid #ccc;
   border-radius: 16px;
 }
-
 .poll-container button {
   width: 400px;
   text-align: center;
 }
-
 .poll-info .header {
   font-weight: 600;
   border-bottom: 1px solid;

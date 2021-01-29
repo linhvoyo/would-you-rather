@@ -22,6 +22,8 @@
     "rules": {
         "react/jsx-filename-extension": [0, { "allow": "as-needed" }],
         "import/no-extraneous-dependencies": ["error", {"devDependencies": true}],
-        "no-unused-vars": ["warn", { "vars": "all", "args": "after-used", "ignoreRestSiblings": false }]
+        "no-unused-vars": ["warn", { "vars": "all", "args": "after-used", "ignoreRestSiblings": false }],
+        "react/forbid-prop-types": [0],
+        "react/require-default-props": [0]
     }
 }

@@ -46,6 +46,5 @@ const LeaderBoard = (props) => {
 export default LeaderBoard;
 
 LeaderBoard.propTypes = {
-  // eslint-disable-next-line react/forbid-prop-types
   users: PropTypes.object.isRequired,
 };

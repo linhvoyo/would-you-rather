@@ -101,18 +101,9 @@ const mapStateToProps = ({ authedUser, questions, users }, props) => {
 export default connect(mapStateToProps)(Poll);
 
 Poll.propTypes = {
-  // eslint-disable-next-line react/forbid-prop-types
   question: PropTypes.object,
-  // eslint-disable-next-line react/forbid-prop-types
   author: PropTypes.object,
   authedUser: PropTypes.string,
   dispatch: PropTypes.func.isRequired,
   id: PropTypes.string,
-};
-
-Poll.defaultProps = {
-  question: null,
-  authedUser: null,
-  author: null,
-  id: '',
 };

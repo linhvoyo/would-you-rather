@@ -39,10 +39,3 @@ Nav.propTypes = {
   avatarURL: PropTypes.string,
   onLogOut: PropTypes.func,
 };
-
-Nav.defaultProps = {
-  authUser: null,
-  name: null,
-  avatarURL: null,
-  onLogOut: null,
-};

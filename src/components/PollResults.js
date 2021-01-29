@@ -29,7 +29,6 @@ const PollResults = (props) => {
 export default PollResults;
 
 PollResults.propTypes = {
-  // eslint-disable-next-line react/forbid-prop-types
   options: PropTypes.array.isRequired,
   authedUser: PropTypes.string.isRequired,
 };

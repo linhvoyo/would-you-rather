@@ -1,13 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { Route, Redirect } from 'react-router-dom';
+import { BrowserRouter, Route, Redirect } from 'react-router-dom';
 
 import './App.css';
-import {
-  logOut,
-  handleGetUsers,
-} from '../store/actions';
+import { logOut, handleGetUsers } from '../store/actions';
 import HomePage from './HomePage';
 import Nav from '../components/Nav';
 import CreateQuestion from './CreateQuestion';
@@ -22,30 +19,28 @@ class App extends React.Component {
   }
 
   render() {
-    const {
-      authedUser,
-      dispatch,
-      users,
-    } = this.props;
+    const { authedUser, dispatch, users } = this.props;
 
     return (
-      <div className="App">
-        {!authedUser ? <Nav />
-          : (
-            <Nav
-              name={users[authedUser].name}
-              avatarURL={users[authedUser].avatarURL}
-              onLogOut={() => dispatch(logOut())}
-              authUser={authedUser}
-            />
-          )}
-        {!authedUser && <Redirect to="/login" />}
-        <Route path="/login" exact component={LogIn} />
-        <Route path="/" exact component={HomePage} />
-        <Route path="/question/:id" component={Poll} />
-        <Route path="/leaderboard" exact render={() => <LeaderBoard users={users} />} />
-        <Route path="/add" exact component={CreateQuestion} />
-      </div>
+      <BrowserRouter>
+        <div className="App">
+          {!authedUser ? <Nav />
+            : (
+              <Nav
+                name={users[authedUser].name}
+                avatarURL={users[authedUser].avatarURL}
+                onLogOut={() => dispatch(logOut())}
+                authUser={authedUser}
+              />
+            )}
+          {!authedUser && <Redirect to="/login" />}
+          <Route path="/login" exact component={LogIn} />
+          <Route path="/" exact component={HomePage} />
+          <Route path="/question/:id" component={Poll} />
+          <Route path="/leaderboard" exact render={() => <LeaderBoard users={users} />} />
+          <Route path="/add" exact component={CreateQuestion} />
+        </div>
+      </BrowserRouter>
     );
   }
 }
@@ -60,6 +55,5 @@ export default connect(mapStateToProps)(App);
 App.propTypes = {
   dispatch: PropTypes.func.isRequired,
   authedUser: PropTypes.string.isRequired,
-  // eslint-disable-next-line react/forbid-prop-types
   users: PropTypes.object.isRequired,
 };

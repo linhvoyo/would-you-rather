@@ -49,17 +49,10 @@ const mapStateToProps = ({ authedUser, users, ui }) => ({
 export default connect(mapStateToProps)(LogIn);
 
 LogIn.propTypes = {
-  // eslint-disable-next-line react/forbid-prop-types
   users: PropTypes.array.isRequired,
   dispatch: PropTypes.func.isRequired,
   authedUser: PropTypes.string,
   appLoading: PropTypes.bool.isRequired,
-  // eslint-disable-next-line react/forbid-prop-types
   history: PropTypes.object.isRequired,
-  // eslint-disable-next-line react/forbid-prop-types
   location: PropTypes.object.isRequired,
-};
-
-LogIn.defaultProps = {
-  authedUser: '',
 };

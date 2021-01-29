@@ -11,7 +11,6 @@ import Spinner from '../components/UI/Spinner';
 class HomePage extends React.Component {
   constructor(props) {
     super(props);
-
     this.state = {
       answered: false,
     };
@@ -81,12 +80,9 @@ const mapPropsToState = ({
 export default connect(mapPropsToState)(HomePage);
 
 HomePage.propTypes = {
-  // eslint-disable-next-line react/forbid-prop-types
   questions: PropTypes.array.isRequired,
-  // eslint-disable-next-line react/forbid-prop-types
   users: PropTypes.object.isRequired,
   authedUser: PropTypes.string.isRequired,
-  // eslint-disable-next-line react/forbid-prop-types
   history: PropTypes.object.isRequired,
   appLoading: PropTypes.bool.isRequired,
 };

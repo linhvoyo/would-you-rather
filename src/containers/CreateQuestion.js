@@ -26,10 +26,7 @@ class CreateQuestion extends React.Component {
   }
 
   render() {
-    const {
-      authedUser,
-      creatingQuestion,
-    } = this.props;
+    const { authedUser, creatingQuestion } = this.props;
 
     if (!authedUser) return <Redirect to={{ pathname: '/login', state: { from: '/add' } }} />;
 
@@ -68,12 +65,7 @@ export default connect(mapStateToProps)(CreateQuestion);
 
 CreateQuestion.propTypes = {
   dispatch: PropTypes.func.isRequired,
-  // eslint-disable-next-line react/forbid-prop-types
   history: PropTypes.object.isRequired,
   authedUser: PropTypes.string,
   creatingQuestion: PropTypes.bool.isRequired,
-};
-
-CreateQuestion.defaultProps = {
-  authedUser: null,
 };

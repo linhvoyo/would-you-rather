@@ -6,19 +6,16 @@
   border: 1px solid #ccc;
   border-radius: 16px;
 }
-
 .LeaderBoard .user-info {
   position: relative ;
   flex-grow: 1;
 }
-
 .LeaderBoard .user-info .header {
   margin-bottom: 10px;
   border-bottom: solid;
   text-align: left;
   font-weight: 600;
 }
-
 .LeaderBoard .user-info .user-score {
   position: absolute;
   right: 15%;
