@@ -8,20 +8,25 @@ import {
   updateQuestionOnQuestionSave,
   updateQuestionOnCreate,
   handleGetQuestions,
-  createQuestionLoading,
-  createQuestionLoaded,
 } from './questions';
 import {
   appLoaded,
   appLoading,
+  saveQuestionLoaded,
+  saveQuestionLoading,
+  createQuestionLoading,
+  createQuestionLoaded,
 } from './ui';
 
 export const saveQuestion = (qid, answer) => (dispatch, getState) => {
+  dispatch(saveQuestionLoading());
   const { authedUser } = getState();
-  return _saveQuestionAnswer({ authedUser, qid, answer }).then(() => {
-    dispatch(updateQuestionOnQuestionSave(authedUser, qid, answer));
-    dispatch(updateUserOnQuestionSave(authedUser, qid, answer));
-  });
+  return _saveQuestionAnswer({ authedUser, qid, answer })
+    .then(() => {
+      dispatch(updateQuestionOnQuestionSave(authedUser, qid, answer));
+      dispatch(updateUserOnQuestionSave(authedUser, qid, answer));
+    })
+    .finally(() => dispatch(saveQuestionLoaded()));
 };
 
 export const createQuestion = (optionOneText, optionTwoText) => (dispatch, getState) => {
