@@ -7,16 +7,13 @@ import { Button } from 'react-bulma-components';
 import './HomePage.css';
 import PollInfo from '../components/PollInfo';
 import Spinner from '../components/UI/Spinner';
-import { handleGetQuestions } from '../store/actions';
 
 class HomePage extends React.Component {
   constructor(props) {
     super(props);
-    this.answered = 'Answered';
-    this.unanswered = 'Unanswered';
 
     this.state = {
-      type: this.unanswered,
+      answered: false,
     };
   }
 
@@ -26,47 +23,55 @@ class HomePage extends React.Component {
   };
 
   toggleTypeHandler = () => {
-    this.setState((prev) => (
-      { type: prev.type === this.answered ? this.unanswered : this.answered }));
+    this.setState((prev) => ({ answered: !prev.answered }));
   };
 
   render() {
-    const { questions, users, authedUser } = this.props;
-    const { type } = this.state;
+    const {
+      questions,
+      users,
+      authedUser,
+      appLoading,
+    } = this.props;
+    const { answered } = this.state;
 
     if (!authedUser) return <Redirect to={{ pathname: '/login', state: { from: '/' } }} />;
 
-    const answeredQs = questions.filter((q) => q.answeredBy.includes(authedUser));
-    const unansweredQs = questions.filter((q) => !q.answeredBy.includes(authedUser));
+    const allQuestions = questions.filter((q) => q.answeredBy.includes(authedUser) === answered);
 
-    const showQuestions = type === this.answered ? answeredQs : unansweredQs;
+    const display = allQuestions.length ? allQuestions.map((q) => (
+      <PollInfo
+        key={q.id}
+        author={q.author}
+        avatar={users[q.author].avatarURL}
+        id={q.id}
+        onViewPoll={this.viewPollHandler}
+        text={q.optionOne.text || q.optionTwo.text}
+      />
+    )) : <div><strong>Current list is empty!</strong></div>;
 
     return (
       <div className="HomePage">
         <Button className="toggle-type" onClick={this.toggleTypeHandler}>
-          {type === this.answered ? 'View Unanswered' : 'View Answered'}
+          {answered ? 'View Unanswered' : 'View Answered'}
         </Button>
-        <h1 className="subtitle">{`${type} Questions`}</h1>
+        <h1 className="subtitle">{`${answered ? 'Answered' : 'Unanswered'} Questions`}</h1>
         <div className="poll-list">
-          {showQuestions.length ? showQuestions.map((q) => (
-            <PollInfo
-              key={q.id}
-              author={q.author}
-              avatar={users[q.author].avatarURL}
-              id={q.id}
-              onViewPoll={this.viewPollHandler}
-              text={q.optionOne.text || q.optionTwo.text}
-            />
-          ))
-            : <Spinner />}
+          {appLoading ? <Spinner /> : display}
         </div>
       </div>
     );
   }
 }
 
-const mapPropsToState = ({ questions, users, authedUser }) => ({
+const mapPropsToState = ({
+  questions,
+  users,
   authedUser,
+  ui,
+}) => ({
+  authedUser,
+  appLoading: ui.appLoading,
   users,
   questions: Object.values(questions)
     .map((q) => ({ ...q, answeredBy: [...q.optionOne.votes, ...q.optionTwo.votes] }))
@@ -83,4 +88,5 @@ HomePage.propTypes = {
   authedUser: PropTypes.string.isRequired,
   // eslint-disable-next-line react/forbid-prop-types
   history: PropTypes.object.isRequired,
+  appLoading: PropTypes.bool.isRequired,
 };
