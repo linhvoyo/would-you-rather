@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import { Button } from 'react-bulma-components';
@@ -19,11 +18,11 @@ class LogIn extends React.Component {
     const user = event.target.user.value;
     await dispatch(logIn(user));
     if (location && location.state) history.push(location.state.from);
+    else history.push('/');
   };
 
   render() {
-    const { authedUser, appLoading, users } = this.props;
-    if (authedUser) return <Redirect to="/" />;
+    const { appLoading, users } = this.props;
     return users.length ? (
       <div className="Login">
         <h1>Please sign in to continue </h1>
@@ -51,7 +50,6 @@ export default connect(mapStateToProps)(LogIn);
 LogIn.propTypes = {
   users: PropTypes.array.isRequired,
   dispatch: PropTypes.func.isRequired,
-  authedUser: PropTypes.string,
   appLoading: PropTypes.bool.isRequired,
   history: PropTypes.object.isRequired,
   location: PropTypes.object.isRequired,

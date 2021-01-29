@@ -18,7 +18,7 @@ class HomePage extends React.Component {
 
   viewPollHandler = (id) => {
     const { history: { push } } = this.props;
-    push(`/question/${id}`);
+    push(`/questions/${id}`);
   };
 
   toggleTypeHandler = () => {

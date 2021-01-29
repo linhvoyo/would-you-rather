@@ -18,7 +18,7 @@ export default function Nav(props) {
       <div className="navbar-start">
         <NavLink to="/" exact className="navbar-item" activeClassName="active">Home</NavLink>
         <NavLink to="/add" exact className="navbar-item" activeClassName="active">New Question</NavLink>
-        <NavLink to="/leaderboard" exact className="navbar-item" activeClassName="active">Leader Board</NavLink>
+        <NavLink to="/leaderboard" exact className="navbar-item" activeClassName="active">Leaderboard</NavLink>
       </div>
       {authUser && (
         <div className="navbar-end">

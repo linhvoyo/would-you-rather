@@ -1,10 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Redirect } from 'react-router-dom';
 
 import './LeaderBoard.css';
 
 const LeaderBoard = (props) => {
-  const { users } = props;
+  const { authedUser, users } = props;
+
+  if (!authedUser) return <Redirect to={{ pathname: '/login', state: { from: '/leaderboard' } }} />;
 
   const sortedUsers = Object.keys(users).map((user) => ({
     ...users[user],
@@ -47,4 +50,5 @@ export default LeaderBoard;
 
 LeaderBoard.propTypes = {
   users: PropTypes.object.isRequired,
+  authedUser: PropTypes.string,
 };

@@ -43,7 +43,7 @@ class Poll extends React.Component {
       author,
     } = this.props;
 
-    if (!authedUser) return <Redirect to={{ pathname: '/login', state: { from: `/question/${id}` } }} />;
+    if (!authedUser) return <Redirect to={{ pathname: '/login', state: { from: `/questions/${id}` } }} />;
     return (
       <div className="Poll poll-container">
         {question && answered !== null ? (

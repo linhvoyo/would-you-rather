@@ -36,8 +36,8 @@ class App extends React.Component {
           {!authedUser && <Redirect to="/login" />}
           <Route path="/login" exact component={LogIn} />
           <Route path="/" exact component={HomePage} />
-          <Route path="/question/:id" component={Poll} />
-          <Route path="/leaderboard" exact render={() => <LeaderBoard users={users} />} />
+          <Route path="/questions/:id" component={Poll} />
+          <Route path="/leaderboard" exact render={() => <LeaderBoard authedUser={authedUser} users={users} />} />
           <Route path="/add" exact component={CreateQuestion} />
         </div>
       </BrowserRouter>
